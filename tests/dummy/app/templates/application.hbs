@@ -1,3 +1,24 @@
 <h2 id="title">Welcome to Ember</h2>
 
+<div>
+  <h4>Normal</h4>
+  max = 100; min = 0 value = 5
+  {{e-numeric-input max=100 min=0 value=5 }}
+</div>
+
+<div>
+    <h4>Format = currency</h4>
+    {{e-numeric-input format="currency" value=5 }}
+</div>
+
+<div>
+    <h4>Format = percentage</h4>
+    {{e-numeric-input format="percentage" value=5 }}
+</div>
+
+<div>
+    <h4>Format = custom</h4>
+    {{e-numeric-input format="custom" customFormatUnit="kg" value=5 }}
+</div>
+
 {{outlet}}
