@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   max: null,
   min: null,
   decimals: 0,
-  step: 3,
+  step: 1,
 
   displayFormatted: true,
   displayedValue: null,
@@ -27,12 +27,12 @@ export default Ember.Component.extend({
     }
   }),
   setInitialDisplayValue: Ember.on('init', function() {
-    console.log('init');
+    //console.log('init');
     this.set('displayedValue', this.get('formattedValue'));
   }),
 
   formattedValue: Ember.computed('displayFormatted', function() { // is always string
-    console.log('!!!! fomattedValue computed property', this.get('displayFormatted'));
+    //console.log('!!!! fomattedValue computed property', this.get('displayFormatted'));
     if (this.get('displayFormatted')) {
       const value = this.get('value');
       const format = this.get('format');
@@ -100,7 +100,7 @@ export default Ember.Component.extend({
     const re = new RegExp(this.get('floatRegExp'));
     const isValid = re.test(possibleValue);
 
-    if (!isValid || (min !== null && min >= 0 && value.toString().charAt(0) === '-')) {
+    if (!isValid || (min !== null && min >= 0 && character === '-')) {
       e.preventDefault();
     }
   },
@@ -134,14 +134,22 @@ export default Ember.Component.extend({
     const value = this.get('value');
     const max = this.get('max');
     const min = this.get('min');
+
+    let setToLimit = false;
     if (max && value > max) {
       this.set('value', max);
+      setToLimit = true;
     } else if (min && value < min) {
       this.set('value', min);
+      setToLimit = true;
     }
 
-    if (!this.get('displayFormatted') && this.get('displayedValue')) {
-      this.set('value', parseFloat(this.get('displayedValue')));
+    if (!this.get('displayFormatted') && this.get('displayedValue') && !setToLimit) {
+      const newValue = parseFloat(this.get('displayedValue'));
+      // TODO: handle number of decimals
+      // ? decimals = how many decimals can appear in input box
+      // when focusing out, round the number to specified number of decimals
+      this.set('value', newValue);
     }
 
     this.set('displayFormatted', true);
