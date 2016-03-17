@@ -23,7 +23,11 @@ export default Ember.Component.extend({
     if (this.get('displayFormatted')) {
       this.set('displayedValue', this.get('formattedValue'));
     } else {
-      this.set('displayedValue', this.get('value').toString());
+      if (this.get('value') !== null) {
+        this.set('displayedValue', this.get('value').toString());
+      } else {
+        this.set('displayedValue', "");
+      }
     }
   }),
   setInitialDisplayValue: Ember.on('init', function() {
@@ -33,8 +37,8 @@ export default Ember.Component.extend({
 
   formattedValue: Ember.computed('displayFormatted', function() { // is always string
     //console.log('!!!! fomattedValue computed property', this.get('displayFormatted'));
-    if (this.get('displayFormatted')) {
-      const value = this.get('value');
+    const value = this.get('value');
+    if (this.get('displayFormatted') && value !== null) {
       const format = this.get('format');
       let valueString;
       if (!format) {
@@ -131,25 +135,24 @@ export default Ember.Component.extend({
   },
 
   focusOut: function() {
-    const value = this.get('value');
-    const max = this.get('max');
-    const min = this.get('min');
-
-    let setToLimit = false;
-    if (max && value > max) {
-      this.set('value', max);
-      setToLimit = true;
-    } else if (min && value < min) {
-      this.set('value', min);
-      setToLimit = true;
-    }
-
-    if (!this.get('displayFormatted') && this.get('displayedValue') && !setToLimit) {
-      const newValue = parseFloat(this.get('displayedValue'));
+    if (this.get('displayedValue') !== "") {
+      let newValue = parseFloat(this.get('displayedValue'));
       // TODO: handle number of decimals
       // ? decimals = how many decimals can appear in input box
       // when focusing out, round the number to specified number of decimals
+
+      const max = this.get('max');
+      const min = this.get('min');
+
+      if (max !== null && newValue > max) {
+        newValue = max;
+      } else if (min != null && newValue < min) {
+        newValue = min;
+      }
+
       this.set('value', newValue);
+    } else {
+      this.set('value', null);
     }
 
     this.set('displayFormatted', true);
