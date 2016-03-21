@@ -19,6 +19,8 @@ function imitateClick(button, component) {
 function imitateUserInput(inputElement, inputValue, component) {
     inputElement.focus();
     inputElement.val(inputValue);
+    inputElement.trigger('input');
+    inputElement.change();
     component.blur();
 }
 
@@ -129,4 +131,40 @@ test('test up-down for currency input with restrictions', function(assert) {
 
     imitateClick(downButton, component);
     assert.equal(inputElement.val(), '$4', 'value is still min after third decrement');
+});
+
+test('test if custom action fired onChange', function(assert) {
+    var flag = false;
+    this.set('exampleAction', function() {flag = true;});
+
+    this.render(hbs`{{e-numeric-input onChange=(action exampleAction) value=5 }}`);
+
+    const inputElement = this.$('input');
+    const upButton = this.$('.e-numeric-up');
+    const component = this.$('.e-numeric-input');
+
+    imitateClick(upButton, component);
+    assert.equal(inputElement.val(), '6', 'value is correct after increment');
+    assert.equal(flag, true, 'action fired after increment');
+
+    flag = false; // reset flag
+    imitateUserInput(inputElement, '95', component);
+    assert.equal(inputElement.val(), '95', 'value is correct after imitate type');
+    assert.equal(flag, true, 'action fired after increment');
+});
+
+test('test number of decimals is displayed correctly', function(assert) {
+    this.render(hbs`{{e-numeric-input decimals=2 value=5 }}`);
+
+    const inputElement = this.$('input');
+    const upButton = this.$('.e-numeric-up');
+    const component = this.$('.e-numeric-input');
+
+    assert.equal(inputElement.val(), '5.00', 'given value is displayed in input');
+
+    imitateClick(upButton, component);
+    assert.equal(inputElement.val(), '6.00', 'value is correct after increment');
+
+    imitateUserInput(inputElement, '8.12345', component);
+    assert.equal(inputElement.val(), '8.12', 'value is correct after typing number with more than 2 decimals');
 });

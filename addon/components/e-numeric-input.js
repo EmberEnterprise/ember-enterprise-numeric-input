@@ -18,6 +18,17 @@ export default Ember.Component.extend({
 
   displayFormatted: true,
   displayedValue: null,
+
+  format: null, // options: currency, percentage, custom
+  currencyUnit: '$', // user can change to pound/euro/etc
+  customFormatUnit: null, // can be anything: kg, l, cm
+
+  floatRegExp: /^(-)?(((\d+(\.\d*)?)|(\.\d*)))?$/,
+
+  disabled: false,
+
+  value: null, // the actual float value
+
   switchDisplayedValue: Ember.observer('formattedValue', 'value', function() {
     console.log('formattedValue:', this.get('formattedValue'), 'value', this.get('value'));
     if (this.get('displayFormatted')) {
@@ -57,16 +68,6 @@ export default Ember.Component.extend({
       }
     }
   }),
-
-  format: null, // options: currency, percentage, custom
-  currencyUnit: '$', // user can change to pound/euro/etc
-  customFormatUnit: null, // can be anything: kg, l, cm
-
-  floatRegExp: /^(-)?(((\d+(\.\d*)?)|(\.\d*)))?$/,
-
-  disabled: false,
-
-  value: null, // the actual float value
 
   upperLimitReached: function(value) {
     const max = this.get('max');
