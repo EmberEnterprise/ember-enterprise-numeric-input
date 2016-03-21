@@ -24,36 +24,35 @@ export default Ember.Component.extend({
       this.set('displayedValue', this.get('formattedValue'));
     } else {
       if (this.get('value') !== null) {
-        this.set('displayedValue', this.get('value').toString());
+        this.set('displayedValue', this.get('value').toFixed(this.get('decimals')));
       } else {
         this.set('displayedValue', "");
       }
     }
   }),
   setInitialDisplayValue: Ember.on('init', function() {
-    //console.log('init');
     this.set('displayedValue', this.get('formattedValue'));
   }),
 
   formattedValue: Ember.computed('displayFormatted', function() { // is always string
-    //console.log('!!!! fomattedValue computed property', this.get('displayFormatted'));
     const value = this.get('value');
+    const decimals = this.get('decimals');
     if (this.get('displayFormatted') && value !== null) {
       const format = this.get('format');
       let valueString;
       if (!format) {
-        return value.toString();
+        return value.toFixed(decimals);
 
       } else if (format === 'currency') {
-        valueString = this.get('currencyUnit') + value.toString();
+        valueString = this.get('currencyUnit') + value.toFixed(decimals);
         return valueString;
 
       } else if (format === 'percentage') {
-        valueString = value.toString() + ' %';
+        valueString = value.toFixed(decimals) + ' %';
         return valueString;
 
       } else if (format === 'custom') {
-        valueString = value.toString() + ' ' + this.get('customFormatUnit');
+        valueString = value.toFixed(decimals) + ' ' + this.get('customFormatUnit');
         return valueString;
       }
     }
@@ -68,12 +67,6 @@ export default Ember.Component.extend({
   disabled: false,
 
   value: null, // the actual float value
-  //displayedValueObserver: Ember.observer('displayedValue', function() {
-  //  console.log('---- displayValueObserver', this.get('displayedValue'));
-  //  if (!this.get('displayFormatted') && this.get('displayedValue')) {
-  //    this.set('value', parseFloat(this.get('displayedValue')));
-  //  }
-  //}),
 
   upperLimitReached: function(value) {
     const max = this.get('max');
@@ -91,7 +84,26 @@ export default Ember.Component.extend({
     return false;
   },
 
+  getFloatValueFromDisplay() {
+    const format = this.get('format');
+    const displayedValue = this.get('displayedValue');
+    let possibleFloat = parseFloat(displayedValue);
+    if (!isNaN(possibleFloat)) {
+      return possibleFloat;
+    }
+
+    if (format === 'currency') {
+      possibleFloat = displayedValue.substring(this.get('currencyUnit').length);
+    } else if (format === 'percentage') {
+      possibleFloat = displayedValue.substring(0, displayedValue.length - 2);
+    } else if (format === 'custom') {
+      possibleFloat = displayedValue.substring(0, displayedValue.length - 1 - this.get('customFormatUnit').length);
+    }
+    return parseFloat(possibleFloat);
+  },
+
   keyPress: function(e) {
+    this.set('displayFormatted', false);
     const character = String.fromCharCode(e.which);
     const inputElement = e.target;
     const selectionStart = inputElement.selectionStart;
@@ -109,37 +121,13 @@ export default Ember.Component.extend({
     }
   },
 
-  floatToFormattedString: function() {
-    const value = this.get('value');
-    const format = this.get('format');
-    let valueString;
-    if (!format) {
-      this.set('formattedValue', value.toString());
-
-    } else if (format === 'currency') {
-      valueString = this.get('currencyUnit') + value.toString();
-      this.set('formattedValue', valueString);
-
-    } else if (format === 'percentage') {
-      valueString = value.toString() + ' %';
-      this.set('formattedValue', valueString);
-
-    } else if (format === 'custom') {
-      valueString = value.toString() + ' ' + this.get('customFormatUnit');
-      this.set('formattedValue', valueString);
-    }
-  },
-
   focusIn: function() {
     this.set('displayFormatted', false);
   },
 
   focusOut: function() {
-    if (this.get('displayedValue') !== "") {
-      let newValue = parseFloat(this.get('displayedValue'));
-      // TODO: handle number of decimals
-      // ? decimals = how many decimals can appear in input box
-      // when focusing out, round the number to specified number of decimals
+    if (this.get('displayedValue') !== "") { // trebuie lasata si verificarea lui displayFormatted ??
+      let newValue = this.getFloatValueFromDisplay();
 
       const max = this.get('max');
       const min = this.get('min');
@@ -149,7 +137,6 @@ export default Ember.Component.extend({
       } else if (min != null && newValue < min) {
         newValue = min;
       }
-
       this.set('value', newValue);
     } else {
       this.set('value', null);
@@ -159,22 +146,24 @@ export default Ember.Component.extend({
   },
 
   pressUp: function() {
+    this.set('displayFormatted', false);
     const value = this.get('value');
     const step = this.get('step');
     if (this.upperLimitReached(value) || this.upperLimitReached(value + step)) {
       this.set('value', this.get('max'));
-      return;
+    } else {
+      this.set('value', value + step);
     }
-    this.set('value', value+step);
   },
 
   pressDown: function() {
+    this.set('displayFormatted', false);
     const value = this.get('value');
     const step = this.get('step');
     if (this.lowerLimitReached(value) || this.lowerLimitReached(value - step)) {
       this.set('value', this.get('min'));
-      return;
+    } else {
+      this.set('value', value-step);
     }
-    this.set('value', value-step);
   }
 });

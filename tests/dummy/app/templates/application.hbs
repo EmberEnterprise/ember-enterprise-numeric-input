@@ -2,23 +2,25 @@
 
 <div>
   <h4>Normal</h4>
-  max = 100; min = 0 value = 5
+  max = 100; min = 0 value = 5; decimals = 0 (default)
   {{e-numeric-input max=100 min=0 value=5 }}
 </div>
 
 <div>
     <h4>Format = currency</h4>
-    max = 100; min = -10
-    {{e-numeric-input format="currency" max=100 min=-10 value=5 }}
+    max = 100; min = -10; decimals = 2
+    {{e-numeric-input format="currency" decimals=2 max=100 min=-10 value=5 }}
 </div>
 
 <div>
     <h4>Format = percentage</h4>
-    {{e-numeric-input format="percentage" value=5 }}
+    decimals = 3
+    {{e-numeric-input format="percentage" decimals=3 value=5 }}
 </div>
 
 <div>
     <h4>Format = custom</h4>
-    {{e-numeric-input format="custom" customFormatUnit="kg" value=5 }}
+    decimals = 4
+    {{e-numeric-input format="custom" customFormatUnit="kg" decimals=4 value=5 }}
 </div>
 {{outlet}}

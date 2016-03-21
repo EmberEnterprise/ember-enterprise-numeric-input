@@ -1,3 +1,7 @@
-{{input value=displayedValue}}
-<button class="e-numeric-up" {{action pressUp}}>up</button>
-<button class="e-numeric-down" {{action pressDown}}>down</button>
+<span class="e-numeric-wrap">
+    {{input value=displayedValue}}
+    <span class="e-select">
+        <button class="e-numeric-button e-numeric-up" {{action pressUp}}><i></i></button>
+        <button class="e-numeric-button e-numeric-down" {{action pressDown}}><i></i></button>
+    </span>
+</span>
