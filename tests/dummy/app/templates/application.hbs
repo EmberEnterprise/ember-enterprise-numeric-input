@@ -23,4 +23,15 @@
     decimals = 4
     {{e-numeric-input format="custom" customFormatUnit="kg" decimals=4 value=5 }}
 </div>
+
+<div>
+    <h4>With action (check console)</h4>
+    {{e-numeric-input onChange="myAction" value=5 }}
+</div>
+
+<div>
+    <h4>Disabled</h4>
+    {{e-numeric-input disabled=true value=5 }}
+</div>
+
 {{outlet}}

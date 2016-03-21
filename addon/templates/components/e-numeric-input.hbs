@@ -1,7 +1,7 @@
 <span class="e-numeric-wrap">
-    {{input value=displayedValue}}
+    {{input value=displayedValue disabled=disabled}}
     <span class="e-select">
-        <button class="e-numeric-button e-numeric-up" {{action pressUp}}><i></i></button>
-        <button class="e-numeric-button e-numeric-down" {{action pressDown}}><i></i></button>
+        <button class="e-numeric-button e-numeric-up" {{action pressUp}} disabled={{disabled}}><i></i></button>
+        <button class="e-numeric-button e-numeric-down" {{action pressDown}} disabled={{disabled}}><i></i></button>
     </span>
 </span>

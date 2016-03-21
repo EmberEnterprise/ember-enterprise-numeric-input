@@ -87,7 +87,7 @@ export default Ember.Component.extend({
   getFloatValueFromDisplay() {
     const format = this.get('format');
     const displayedValue = this.get('displayedValue');
-    let possibleFloat = parseFloat(displayedValue);
+    let possibleFloat = +displayedValue;
     if (!isNaN(possibleFloat)) {
       return possibleFloat;
     }
@@ -99,7 +99,14 @@ export default Ember.Component.extend({
     } else if (format === 'custom') {
       possibleFloat = displayedValue.substring(0, displayedValue.length - 1 - this.get('customFormatUnit').length);
     }
-    return parseFloat(possibleFloat);
+
+    const re = new RegExp(this.get('floatRegExp'));
+    const isValid = re.test(possibleFloat);
+    if (isValid) {
+      return parseFloat(possibleFloat);
+    } else {
+      return this.get('value');
+    }
   },
 
   keyPress: function(e) {
@@ -143,6 +150,7 @@ export default Ember.Component.extend({
     }
 
     this.set('displayFormatted', true);
+    this.sendAction('onChange', this.get('value'));
   },
 
   pressUp: function() {
