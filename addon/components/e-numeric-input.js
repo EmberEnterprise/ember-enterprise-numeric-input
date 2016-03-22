@@ -5,7 +5,7 @@ export default Ember.Component.extend({
   layout: layout,
   tagName: 'span',
   classNames: ['e-numeric-input'],
-  classNameBindings: ['disabled'],
+  classNameBindings: ['disabled', 'activeClass'],
   attributeBindings: [
     'disabled',
     'placeholder',
@@ -28,6 +28,10 @@ export default Ember.Component.extend({
   disabled: false,
 
   value: null, // the actual float value
+
+  activeClass: Ember.computed('displayFormatted', function() {
+    return (this.get('displayFormatted')) ? '' : 'e-numeric--active';
+  }),
 
   switchDisplayedValue: Ember.observer('formattedValue', 'value', function() {
     console.log('formattedValue:', this.get('formattedValue'), 'value', this.get('value'));
