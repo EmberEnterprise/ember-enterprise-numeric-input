@@ -31,8 +31,8 @@ test('test up-down for simple input without restrictions', function(assert) {
     this.render(hbs`{{e-numeric-input value=5 }}`);
 
     const inputElement = this.$('input');
-    const upButton = this.$('.e-numeric-up');
-    const downButton = this.$('.e-numeric-down');
+    const upButton = this.$('.e-select > .e-numeric-button:first-child');
+    const downButton = this.$('.e-select > .e-numeric-button:last-child');
     const component = this.$('.e-numeric-input');
 
     assert.equal(inputElement.val(), '5', 'given value is displayed in input');
@@ -51,8 +51,8 @@ test('test up-down for simple input with min max value restrictions', function(a
     this.render(hbs`{{e-numeric-input min=0 max=100 value=2 }}`);
 
     const inputElement = this.$('input');
-    const upButton = this.$('.e-numeric-up');
-    const downButton = this.$('.e-numeric-down');
+    const upButton = this.$('.e-select > .e-numeric-button:first-child');
+    const downButton = this.$('.e-select > .e-numeric-button:last-child');
     const component = this.$('.e-numeric-input');
 
     imitateClick(downButton, component);
@@ -81,8 +81,8 @@ test('test if input value hits min and max', function(assert) {
     this.render(hbs`{{e-numeric-input min=0 max=100 step=3 value=5 }}`);
 
     const inputElement = this.$('input');
-    const upButton = this.$('.e-numeric-up');
-    const downButton = this.$('.e-numeric-down');
+    const upButton = this.$('.e-select > .e-numeric-button:first-child');
+    const downButton = this.$('.e-select > .e-numeric-button:last-child');
     const component = this.$('.e-numeric-input');
 
     imitateClick(downButton, component);
@@ -111,8 +111,8 @@ test('test up-down for currency input with restrictions', function(assert) {
     this.render(hbs`{{e-numeric-input format="currency" max=6 min=4 value=5 }}`);
 
     const inputElement = this.$('input');
-    const upButton = this.$('.e-numeric-up');
-    const downButton = this.$('.e-numeric-down');
+    const upButton = this.$('.e-select > .e-numeric-button:first-child');
+    const downButton = this.$('.e-select > .e-numeric-button:last-child');
     const component = this.$('.e-numeric-input');
 
     assert.equal(inputElement.val(), '$5', 'given value is displayed in input');
@@ -140,7 +140,7 @@ test('test if custom action fired onChange', function(assert) {
     this.render(hbs`{{e-numeric-input onChange=(action exampleAction) value=5 }}`);
 
     const inputElement = this.$('input');
-    const upButton = this.$('.e-numeric-up');
+    const upButton = this.$('.e-select > .e-numeric-button:first-child');
     const component = this.$('.e-numeric-input');
 
     imitateClick(upButton, component);
@@ -157,7 +157,7 @@ test('test number of decimals is displayed correctly', function(assert) {
     this.render(hbs`{{e-numeric-input decimals=2 value=5 }}`);
 
     const inputElement = this.$('input');
-    const upButton = this.$('.e-numeric-up');
+    const upButton = this.$('.e-select > .e-numeric-button:first-child');
     const component = this.$('.e-numeric-input');
 
     assert.equal(inputElement.val(), '5.00', 'given value is displayed in input');
