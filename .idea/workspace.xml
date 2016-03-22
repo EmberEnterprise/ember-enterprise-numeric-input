@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f0863f29-145e-486f-905d-c7238fe46c1a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/addon/components/e-numeric-input.js" afterPath="$PROJECT_DIR$/addon/components/e-numeric-input.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/addon/templates/components/e-numeric-input.hbs" afterPath="$PROJECT_DIR$/addon/templates/components/e-numeric-input.hbs" />
     </list>
     <ignored path="ember-enterprise-numeric-input.iws" />
@@ -25,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="e-numeric-input.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="e-numeric-input.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/addon/components/e-numeric-input.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.64">
-              <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
+            <state vertical-scroll-proportion="-4.3448277">
+              <caret line="7" column="46" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -65,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="e-numeric-input.hbs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="e-numeric-input.hbs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/addon/templates/components/e-numeric-input.hbs">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="41" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="27" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -96,8 +95,8 @@
         <option value="$PROJECT_DIR$/tests/dummy/app/controllers/application.js" />
         <option value="$PROJECT_DIR$/tests/dummy/app/templates/application.hbs" />
         <option value="$PROJECT_DIR$/tests/integration/components/e-numeric-input-test.js" />
-        <option value="$PROJECT_DIR$/addon/templates/components/e-numeric-input.hbs" />
         <option value="$PROJECT_DIR$/addon/components/e-numeric-input.js" />
+        <option value="$PROJECT_DIR$/addon/templates/components/e-numeric-input.hbs" />
       </list>
     </option>
   </component>
@@ -935,18 +934,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/addon/templates/components/e-numeric-input.hbs">
+    <entry file="file://$PROJECT_DIR$/addon/components/e-numeric-input.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="41" selection-start-line="0" selection-start-column="41" selection-end-line="0" selection-end-column="41" />
+        <state vertical-scroll-proportion="-4.3448277">
+          <caret line="7" column="46" selection-start-line="7" selection-start-column="35" selection-end-line="7" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/addon/components/e-numeric-input.js">
+    <entry file="file://$PROJECT_DIR$/addon/templates/components/e-numeric-input.hbs">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.64">
-          <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="27" selection-start-line="0" selection-start-column="27" selection-end-line="0" selection-end-column="27" />
           <folding />
         </state>
       </provider>
