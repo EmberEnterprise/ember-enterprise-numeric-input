@@ -168,3 +168,22 @@ test('test number of decimals is displayed correctly', function(assert) {
     imitateUserInput(inputElement, '8.12345', component);
     assert.equal(inputElement.val(), '8.12', 'value is correct after typing number with more than 2 decimals');
 });
+
+test('test disabled numeric input', function(assert) {
+    this.render(hbs`{{e-numeric-input value=5 disabled=true}}`);
+
+    const inputElement = this.$('input');
+    const upButton = this.$('.e-select > .e-numeric-button:first-child');
+    const component = this.$('.e-numeric-input');
+
+    assert.equal(inputElement.val(), '5', 'given value is displayed in input');
+    assert.equal(this.$('span.e-numeric-input.disabled').length, 1, 'span wrapping the component has .disabled class');
+    assert.equal(this.$('button:disabled').length, 2, 'both buttons are disabled');
+    assert.equal(this.$('input:disabled').length, 1, 'input is disabled');
+
+    imitateClick(upButton, component);
+    assert.equal(inputElement.val(), '5', 'value did not change when clicking up button');
+
+    imitateUserInput(inputElement, '8.12345', component);
+    assert.equal(inputElement.val(), '5', 'value cannot be changed from keyboard');
+});
