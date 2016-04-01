@@ -1,12 +1,18 @@
 # Ember-enterprise-numeric-input
 
-This README outlines the details of collaborating on this Ember addon.
+[![Build Status](https://travis-ci.org/EmberEnterprise/ember-enterprise-numeric-input.svg?branch=master)](https://travis-ci.org/EmberEnterprise/ember-enterprise-numeric-input)
+
+EmberEnterprise Numeric Input Component
 
 ## Installation
 
 * `git clone` this repository
 * `npm install`
 * `bower install`
+
+## Documentation
+
+[http://emberenterprise.com/doc/numeric_input_documentation.html](http://emberenterprise.com/doc/numeric_input_documentation.html)
 
 ## Running
 
